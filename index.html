@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 繪本創作小工坊</title>
+  <!-- 引入 Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入 Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* 自訂漸變動畫與基本樣式 */
+    body {
+      font-family: 'Helvetica Neue', Arial, 'LiHei Pro', '微軟正黑體', sans-serif;
+    }
+    .delay-1000 {
+      animation-delay: 1000ms;
+    }
+    select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 1em;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-amber-50 via-rose-50 to-sky-100 p-4 md:p-8 font-sans pb-20">
+  <div class="max-w-6xl mx-auto space-y-8">
+    
+    <!-- 一、課程導入區 -->
+    <header class="text-center py-10 bg-white/60 backdrop-blur-md rounded-[3rem] shadow-sm border border-white/80 relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-32 h-32 bg-yellow-300 rounded-full mix-blend-multiply filter blur-2xl opacity-30 animate-pulse"></div>
+      <div class="absolute bottom-0 right-0 w-32 h-32 bg-pink-300 rounded-full mix-blend-multiply filter blur-2xl opacity-30 animate-pulse delay-1000"></div>
+      <div class="relative z-10">
+        <div class="inline-flex items-center justify-center p-4 bg-gradient-to-r from-orange-400 to-pink-500 rounded-full text-white mb-4 shadow-lg shadow-pink-200">
+          <i data-lucide="sparkles" class="w-10 h-10"></i>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-pink-600 to-purple-600 mb-6 drop-shadow-sm">
+          AI 繪本創作小工坊
+        </h1>
+        <h2 class="text-xl md:text-2xl font-bold text-gray-700 mb-4 bg-white/80 inline-block px-6 py-2 rounded-full shadow-sm">
+          風格 × 排版 × 故事畫面
+        </h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto font-medium px-4 leading-relaxed">
+          繪本不是只有「畫得漂亮」，而是用圖像帶路、文字補充，<br class="hidden md:block"/>讓讀者跟著畫面走進故事。一起來設計你的第一頁繪本吧！
+        </p>
+      </div>
+    </header>
+
+    <!-- 二、繪本風格分類區 -->
+    <div class="grid md:grid-cols-2 gap-8">
+      
+      <!-- 媒材與技法卡片 -->
+      <div class="rounded-3xl p-6 border-2 shadow-lg bg-white bg-gradient-to-br from-white to-pink-50/50 border-pink-200">
+        <div class="flex items-center gap-3 mb-6 border-b-2 pb-4 border-gray-100">
+          <div class="p-3 rounded-2xl bg-pink-50 text-pink-800">
+            <i data-lucide="palette" class="w-7 h-7" stroke-width="2.5"></i>
+          </div>
+          <h2 class="text-2xl font-bold tracking-wide text-gray-800">媒材與技法</h2>
+        </div>
+        <div class="space-y-4">
+          <div class="flex items-start gap-3 p-3 bg-white rounded-2xl shadow-sm border border-pink-100 hover:shadow-md transition-shadow">
+            <span class="text-2xl">💧</span><div><h3 class="font-bold text-pink-700">水彩風</h3><p class="text-sm text-gray-600">透明、柔和、溫潤</p></div>
+          </div>
+          <div class="flex items-start gap-3 p-3 bg-white rounded-2xl shadow-sm border border-pink-100 hover:shadow-md transition-shadow">
+            <span class="text-2xl">🖍️</span><div><h3 class="font-bold text-pink-700">粉彩／蠟筆風</h3><p class="text-sm text-gray-600">顆粒感、童趣、溫暖</p></div>
+          </div>
+          <div class="flex items-start gap-3 p-3 bg-white rounded-2xl shadow-sm border border-pink-100 hover:shadow-md transition-shadow">
+            <span class="text-2xl">💻</span><div><h3 class="font-bold text-pink-700">線稿電繪風</h3><p class="text-sm text-gray-600">線條清楚、現代、色彩飽和</p></div>
+          </div>
+          <div class="flex items-start gap-3 p-3 bg-white rounded-2xl shadow-sm border border-pink-100 hover:shadow-md transition-shadow">
+            <span class="text-2xl">✂️</span><div><h3 class="font-bold text-pink-700">拼貼風</h3><p class="text-sm text-gray-600">紙張、布料、剪貼層次</p></div>
+          </div>
+          <div class="flex items-start gap-3 p-3 bg-white rounded-2xl shadow-sm border border-pink-100 hover:shadow-md transition-shadow">
+            <span class="text-2xl">🪵</span><div><h3 class="font-bold text-pink-700">版畫風</h3><p class="text-sm text-gray-600">粗線條、印刷肌理、復古感</p></div>
+          </div>
+          <div class="flex items-start gap-3 p-3 bg-white rounded-2xl shadow-sm border border-pink-100 hover:shadow-md transition-shadow">
+            <span class="text-2xl">🖌️</span><div><h3 class="font-bold text-pink-700">水墨風</h3><p class="text-sm text-gray-600">留白、東方意境、淡雅</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 視覺與藝術感卡片 -->
+      <div class="rounded-3xl p-6 border-2 shadow-lg bg-white bg-gradient-to-br from-white to-blue-50/50 border-blue-200">
+        <div class="flex items-center gap-3 mb-6 border-b-2 pb-4 border-gray-100">
+          <div class="p-3 rounded-2xl bg-blue-50 text-blue-800">
+            <i data-lucide="image" class="w-7 h-7" stroke-width="2.5"></i>
+          </div>
+          <h2 class="text-2xl font-bold tracking-wide text-gray-800">視覺與藝術感</h2>
+        </div>
+        <div class="space-y-4">
+          <div class="flex items-start gap-3 p-3 bg-white rounded-2xl shadow-sm border border-blue-100 hover:shadow-md transition-shadow">
+            <span class="text-2xl">🖼️</span><div><h3 class="font-bold text-blue-700">寫實具象派</h3><p class="text-sm text-gray-600">比例真實、光影細緻</p></div>
+          </div>
+          <div class="flex items-start gap-3 p-3 bg-white rounded-2xl shadow-sm border border-blue-100 hover:shadow-md transition-shadow">
+            <span class="text-2xl">🧸</span><div><h3 class="font-bold text-blue-700">卡通童趣派</h3><p class="text-sm text-gray-600">誇張可愛、色彩鮮明</p></div>
+          </div>
+          <div class="flex items-start gap-3 p-3 bg-white rounded-2xl shadow-sm border border-blue-100 hover:shadow-md transition-shadow">
+            <span class="text-2xl">📐</span><div><h3 class="font-bold text-blue-700">唯美幾何派</h3><p class="text-sm text-gray-600">幾何造型、設計感</p></div>
+          </div>
+          <div class="flex items-start gap-3 p-3 bg-white rounded-2xl shadow-sm border border-blue-100 hover:shadow-md transition-shadow">
+            <span class="text-2xl">🦄</span><div><h3 class="font-bold text-blue-700">幻想超現實</h3><p class="text-sm text-gray-600">夢境、魔法、不合常理</p></div>
+          </div>
+          <div class="flex items-start gap-3 p-3 bg-white rounded-2xl shadow-sm border border-blue-100 hover:shadow-md transition-shadow">
+            <span class="text-2xl">⚫</span><div><h3 class="font-bold text-blue-700">極簡黑白風</h3><p class="text-sm text-gray-600">黑白線條、靠構圖說故事</p></div>
+          </div>
+          <div class="flex items-start gap-3 p-3 bg-white rounded-2xl shadow-sm border border-blue-100 hover:shadow-md transition-shadow">
+            <span class="text-2xl">☕</span><div><h3 class="font-bold text-blue-700">療癒系繪本風</h3><p class="text-sm text-gray-600">柔和、溫暖、安靜</p></div>
+          </div>
+          <div class="flex items-start gap-3 p-3 bg-white rounded-2xl shadow-sm border border-blue-100 hover:shadow-md transition-shadow">
+            <span class="text-2xl">😆</span><div><h3 class="font-bold text-blue-700">幽默誇張風</h3><p class="text-sm text-gray-600">表情大、動作大、節奏快</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 三、繪本名家風格補充區 -->
+    <div class="rounded-3xl p-6 border-2 shadow-lg bg-yellow-50/30 border-yellow-200">
+      <div class="flex items-center gap-3 mb-6 border-b-2 pb-4 border-gray-100">
+        <div class="p-3 rounded-2xl bg-yellow-50 text-yellow-800">
+          <i data-lucide="book-open" class="w-7 h-7" stroke-width="2.5"></i>
+        </div>
+        <h2 class="text-2xl font-bold tracking-wide text-gray-800">繪本名家風格 (學習參考)</h2>
+      </div>
+      <div class="bg-yellow-100 text-yellow-800 p-3 rounded-xl mb-6 inline-block font-bold text-sm">
+        ⚠️ 提醒：我們向大師學習氛圍與技巧，但不直接要求 AI 模仿，創造自己的風格！
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="p-4 rounded-2xl bg-blue-100 text-blue-800 shadow-sm bg-opacity-50 border border-white/50 backdrop-blur-sm">
+          <h4 class="font-bold text-lg mb-1">幾米感</h4><p class="text-sm opacity-90">城市孤獨感、詩意畫面、淡淡憂傷、留白多</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-red-100 text-red-800 shadow-sm bg-opacity-50 border border-white/50 backdrop-blur-sm">
+          <h4 class="font-bold text-lg mb-1">宮西達也感</h4><p class="text-sm opacity-90">粗線條、強烈色塊、恐龍動物、幽默溫暖</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-green-100 text-green-800 shadow-sm bg-opacity-50 border border-white/50 backdrop-blur-sm">
+          <h4 class="font-bold text-lg mb-1">艾瑞・卡爾感</h4><p class="text-sm opacity-90">拼貼紙材、鮮豔色彩、簡單形狀、童趣自然</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-amber-100 text-amber-800 shadow-sm bg-opacity-50 border border-white/50 backdrop-blur-sm">
+          <h4 class="font-bold text-lg mb-1">日系療癒風</h4><p class="text-sm opacity-90">柔和光線、自然場景、安靜情緒</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-purple-100 text-purple-800 shadow-sm bg-opacity-50 border border-white/50 backdrop-blur-sm">
+          <h4 class="font-bold text-lg mb-1">歐美睡前故事</h4><p class="text-sm opacity-90">溫暖居家、粉彩厚塗、cozy 氛圍</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 五、混合風格用法範例區 -->
+    <div class="rounded-3xl p-6 border-2 shadow-lg bg-white border-purple-200">
+      <div class="flex items-center gap-3 mb-6 border-b-2 pb-4 border-gray-100">
+        <div class="p-3 rounded-2xl bg-purple-50 text-purple-800">
+          <i data-lucide="lightbulb" class="w-7 h-7" stroke-width="2.5"></i>
+        </div>
+        <h2 class="text-2xl font-bold tracking-wide text-gray-800">混合風格點子庫 (點擊帶入)</h2>
+      </div>
+      <div class="mb-6 bg-purple-100/50 p-4 rounded-2xl border border-purple-200">
+         <span class="font-bold text-purple-800 mr-2">✨ 魔法公式：</span>
+         <span class="bg-white px-2 py-1 rounded shadow-sm text-sm text-purple-700">媒材技法</span> ＋ 
+         <span class="bg-white px-2 py-1 rounded shadow-sm text-sm text-purple-700">視覺感受</span> ＋ 
+         <span class="bg-white px-2 py-1 rounded shadow-sm text-sm text-purple-700">色彩光線</span> ＋ 
+         <span class="bg-white px-2 py-1 rounded shadow-sm text-sm text-purple-700">故事氛圍</span>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-4">
+        <button onclick="loadExample(0)" class="text-left p-4 rounded-2xl bg-white border-2 border-purple-100 hover:border-purple-400 hover:shadow-md transition-all group flex flex-col justify-between">
+          <div>
+            <h4 class="font-bold text-lg text-purple-800 flex items-center gap-2">歐式童話風 <i data-lucide="mouse-pointer-click" class="w-4 h-4 text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity"></i></h4>
+            <p class="text-sm font-medium text-purple-600 mt-1">水彩風 ＋ 歐美童話 ＋ 柔和暖色</p>
+            <p class="text-sm text-gray-500 mt-2">彩色鉛筆筆觸，夢幻植物，紙張紋理</p>
+          </div>
+          <div class="mt-4 text-xs font-bold text-purple-500 bg-purple-50 self-start px-2 py-1 rounded">點擊自動填寫表單</div>
+        </button>
+        <button onclick="loadExample(1)" class="text-left p-4 rounded-2xl bg-white border-2 border-purple-100 hover:border-purple-400 hover:shadow-md transition-all group flex flex-col justify-between">
+          <div>
+            <h4 class="font-bold text-lg text-purple-800 flex items-center gap-2">日系療癒風 <i data-lucide="mouse-pointer-click" class="w-4 h-4 text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity"></i></h4>
+            <p class="text-sm font-medium text-purple-600 mt-1">粉彩厚塗 ＋ 日系療癒 ＋ 夕陽光</p>
+            <p class="text-sm text-gray-500 mt-2">森林系 cottagecore，高細節植物</p>
+          </div>
+          <div class="mt-4 text-xs font-bold text-purple-500 bg-purple-50 self-start px-2 py-1 rounded">點擊自動填寫表單</div>
+        </button>
+        <button onclick="loadExample(2)" class="text-left p-4 rounded-2xl bg-white border-2 border-purple-100 hover:border-purple-400 hover:shadow-md transition-all group flex flex-col justify-between">
+          <div>
+            <h4 class="font-bold text-lg text-purple-800 flex items-center gap-2">童趣拼貼風 <i data-lucide="mouse-pointer-click" class="w-4 h-4 text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity"></i></h4>
+            <p class="text-sm font-medium text-purple-600 mt-1">拼貼風 ＋ 卡通童趣 ＋ 鮮豔對比</p>
+            <p class="text-sm text-gray-500 mt-2">手工剪紙質感，幾何形狀</p>
+          </div>
+          <div class="mt-4 text-xs font-bold text-purple-500 bg-purple-50 self-start px-2 py-1 rounded">點擊自動填寫表單</div>
+        </button>
+        <button onclick="loadExample(3)" class="text-left p-4 rounded-2xl bg-white border-2 border-purple-100 hover:border-purple-400 hover:shadow-md transition-all group flex flex-col justify-between">
+          <div>
+            <h4 class="font-bold text-lg text-purple-800 flex items-center gap-2">幽默誇張風 <i data-lucide="mouse-pointer-click" class="w-4 h-4 text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity"></i></h4>
+            <p class="text-sm font-medium text-purple-600 mt-1">線稿電繪 ＋ 幽默搞笑 ＋ 鮮豔對比</p>
+            <p class="text-sm text-gray-500 mt-2">粗黑線條，強烈色塊，誇張表情</p>
+          </div>
+          <div class="mt-4 text-xs font-bold text-purple-500 bg-purple-50 self-start px-2 py-1 rounded">點擊自動填寫表單</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- 排版教學與清單 -->
+    <div class="grid md:grid-cols-3 gap-8">
+      
+      <!-- 六、繪本版面排版教學區 -->
+      <div class="md:col-span-2">
+        <div class="rounded-3xl p-6 border-2 shadow-lg bg-white border-orange-200 h-full">
+          <div class="flex items-center gap-3 mb-6 border-b-2 pb-4 border-gray-100">
+            <div class="p-3 rounded-2xl bg-orange-50 text-orange-800">
+              <i data-lucide="layout-template" class="w-7 h-7" stroke-width="2.5"></i>
+            </div>
+            <h2 class="text-2xl font-bold tracking-wide text-gray-800">排版方式教學</h2>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-6">
+            <!-- 跨頁滿幅 -->
+            <div class="space-y-2">
+              <div class="w-full h-24 bg-sky-100 rounded-lg border-2 border-sky-300 relative overflow-hidden flex items-center justify-center group hover:bg-sky-200 transition-colors">
+                <div class="absolute left-1/2 top-0 bottom-0 w-px bg-sky-400 border-dashed border-l-2"></div>
+                <i data-lucide="image" class="text-sky-400 opacity-50 w-12 h-12 absolute"></i>
+                <div class="absolute right-4 bottom-2 text-xs text-sky-700 bg-white/70 px-2 py-1 rounded shadow-sm">避免文字在中縫</div>
+              </div>
+              <h4 class="font-bold text-orange-800 text-lg">跨頁滿幅</h4>
+              <p class="text-sm text-gray-600 bg-orange-50 p-2 rounded-lg">適合：大場景、高潮、震撼畫面</p>
+            </div>
+            <!-- 單頁獨立 -->
+            <div class="space-y-2">
+              <div class="flex w-full h-24 gap-2">
+                <div class="flex-1 bg-white rounded-lg border-2 border-gray-200 flex flex-col justify-center px-4 gap-2">
+                   <div class="w-3/4 h-2 bg-gray-200 rounded"></div>
+                   <div class="w-full h-2 bg-gray-200 rounded"></div>
+                   <div class="w-5/6 h-2 bg-gray-200 rounded"></div>
+                </div>
+                <div class="flex-1 bg-green-100 rounded-lg border-2 border-green-300 flex items-center justify-center">
+                  <i data-lucide="image" class="text-green-400 opacity-50 w-8 h-8"></i>
+                </div>
+              </div>
+              <h4 class="font-bold text-orange-800 text-lg">單頁獨立</h4>
+              <p class="text-sm text-gray-600 bg-orange-50 p-2 rounded-lg">適合：場景切換、角色對比、推進</p>
+            </div>
+            <!-- 圖文分立 -->
+            <div class="space-y-2">
+              <div class="w-full h-24 rounded-lg border-2 border-amber-300 flex flex-col overflow-hidden">
+                <div class="h-2/3 bg-amber-100 flex items-center justify-center">
+                  <i data-lucide="image" class="text-amber-400 opacity-50 w-8 h-8"></i>
+                </div>
+                <div class="h-1/3 bg-white flex flex-col justify-center px-3 gap-1.5 border-t-2 border-amber-300">
+                   <div class="w-full h-1.5 bg-gray-200 rounded"></div>
+                   <div class="w-4/5 h-1.5 bg-gray-200 rounded"></div>
+                </div>
+              </div>
+              <h4 class="font-bold text-orange-800 text-lg">圖文分立</h4>
+              <p class="text-sm text-gray-600 bg-orange-50 p-2 rounded-lg">適合：文字多、細節多、安靜閱讀</p>
+            </div>
+            <!-- 連續分格 -->
+            <div class="space-y-2">
+              <div class="w-full h-24 rounded-lg border-2 border-pink-300 p-2 bg-pink-50 grid grid-cols-3 gap-2">
+                <div class="bg-white border-2 border-pink-200 rounded flex items-center justify-center"><i data-lucide="image" class="text-pink-300 w-5 h-5"></i></div>
+                <div class="bg-white border-2 border-pink-200 rounded flex items-center justify-center"><i data-lucide="image" class="text-pink-300 w-5 h-5"></i></div>
+                <div class="bg-white border-2 border-pink-200 rounded flex items-center justify-center"><i data-lucide="image" class="text-pink-300 w-5 h-5"></i></div>
+              </div>
+              <h4 class="font-bold text-orange-800 text-lg">連續分格</h4>
+              <p class="text-sm text-gray-600 bg-orange-50 p-2 rounded-lg">適合：連續動作、搞笑、時間流逝</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 七、排版小提醒區 -->
+      <div class="md:col-span-1">
+        <div class="rounded-3xl p-6 border-2 shadow-lg bg-gradient-to-b from-white to-green-50/30 border-green-200 h-full">
+          <div class="flex items-center gap-3 mb-6 border-b-2 pb-4 border-gray-100">
+            <div class="p-3 rounded-2xl bg-green-50 text-green-800">
+              <i data-lucide="check-circle-2" class="w-7 h-7" stroke-width="2.5"></i>
+            </div>
+            <h2 class="text-2xl font-bold tracking-wide text-gray-800">排版 Checklist</h2>
+          </div>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3 bg-white p-3 rounded-xl shadow-sm border border-green-100">
+              <i data-lucide="check-circle-2" class="text-green-500 flex-shrink-0 mt-0.5 w-5 h-5"></i>
+              <span class="text-gray-700 text-sm font-medium leading-snug">重要人物不要放在中縫</span>
+            </li>
+            <li class="flex items-start gap-3 bg-white p-3 rounded-xl shadow-sm border border-green-100">
+              <i data-lucide="check-circle-2" class="text-green-500 flex-shrink-0 mt-0.5 w-5 h-5"></i>
+              <span class="text-gray-700 text-sm font-medium leading-snug">文字不要壓在複雜背景上</span>
+            </li>
+            <li class="flex items-start gap-3 bg-white p-3 rounded-xl shadow-sm border border-green-100">
+              <i data-lucide="check-circle-2" class="text-green-500 flex-shrink-0 mt-0.5 w-5 h-5"></i>
+              <span class="text-gray-700 text-sm font-medium leading-snug">文字區要預留乾淨留白</span>
+            </li>
+            <li class="flex items-start gap-3 bg-white p-3 rounded-xl shadow-sm border border-green-100">
+              <i data-lucide="check-circle-2" class="text-green-500 flex-shrink-0 mt-0.5 w-5 h-5"></i>
+              <span class="text-gray-700 text-sm font-medium leading-snug">主角往右走，有前進感</span>
+            </li>
+            <li class="flex items-start gap-3 bg-white p-3 rounded-xl shadow-sm border border-green-100">
+              <i data-lucide="check-circle-2" class="text-green-500 flex-shrink-0 mt-0.5 w-5 h-5"></i>
+              <span class="text-gray-700 text-sm font-medium leading-snug">翻頁前可以放一點懸念</span>
+            </li>
+            <li class="flex items-start gap-3 bg-white p-3 rounded-xl shadow-sm border border-green-100">
+              <i data-lucide="check-circle-2" class="text-green-500 flex-shrink-0 mt-0.5 w-5 h-5"></i>
+              <span class="text-gray-700 text-sm font-medium leading-snug">畫面也要會說故事，別全靠字</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 四、學生提示詞鷹架產生器 -->
+    <div class="rounded-3xl p-6 border-4 shadow-xl bg-white border-blue-300 relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50 -z-10 translate-x-1/2 -translate-y-1/2"></div>
+      
+      <div class="flex items-center gap-3 mb-6 border-b-2 pb-4 border-gray-100 relative z-10">
+        <div class="p-3 rounded-2xl bg-blue-50 text-blue-800">
+          <i data-lucide="pen-tool" class="w-7 h-7" stroke-width="2.5"></i>
+        </div>
+        <h2 class="text-2xl font-bold tracking-wide text-gray-800">開始設計！提示詞產生器</h2>
+      </div>
+
+      <!-- 八、學生任務區 -->
+      <div class="bg-blue-50/80 p-5 rounded-2xl mb-8 border border-blue-200 relative z-10">
+        <h3 class="font-bold text-blue-800 text-lg mb-2 flex items-center gap-2">
+          <span class="bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm">任務</span>
+          設計我的第一頁繪本
+        </h3>
+        <p class="text-sm text-blue-700">請依序填寫下方欄位，產生完成後記得點擊「上傳至雲端試算表」來記錄您的作品喔！</p>
+      </div>
+
+      <div class="relative z-10">
+        <!-- 學生基本資料區 (新增) -->
+        <div class="space-y-5 bg-white/80 p-6 rounded-2xl border border-gray-100 shadow-sm mb-6">
+          <h3 class="font-bold text-gray-800 border-b pb-2 mb-4 flex items-center gap-2">
+            <i data-lucide="user" class="w-5 h-5 text-gray-500"></i> 基本資料
+          </h3>
+          <div class="grid md:grid-cols-4 gap-4">
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">班級 <span class="text-red-500">*</span></label>
+              <select id="className" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-400 outline-none">
+                <option value="">請選擇...</option>
+                <option value="801">801</option>
+                <option value="802">802</option>
+                <option value="803">803</option>
+                <option value="804">804</option>
+                <option value="805">805</option>
+                <option value="806">806</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">組別 <span class="text-red-500">*</span></label>
+              <input type="number" id="groupNumber" placeholder="例如：1" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-400 outline-none transition-all">
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">座號 <span class="text-red-500">*</span></label>
+              <input type="text" id="studentIds" placeholder="例如：01, 05, 12" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-400 outline-none transition-all">
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">姓名 <span class="text-red-500">*</span></label>
+              <input type="text" id="studentNames" placeholder="例如：王小明, 李小華" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-400 outline-none transition-all">
+            </div>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- 左欄：內容 -->
+          <div class="space-y-5 bg-white/80 p-6 rounded-2xl border border-gray-100 shadow-sm">
+            <h3 class="font-bold text-gray-800 border-b pb-2 mb-4">📖 故事內容</h3>
+            
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">1. 主角是誰？</label>
+              <input type="text" id="character" placeholder="例如：一隻戴紅帽子的狐狸" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-400 outline-none transition-all">
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">2. 場景在哪裡？</label>
+              <input type="text" id="scene" placeholder="例如：充滿巨大蘑菇的森林" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-400 outline-none transition-all">
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">3. 正在做什麼？</label>
+              <input type="text" id="action" placeholder="例如：正踮起腳尖摘星星" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-400 outline-none transition-all">
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">4. 特別細節 (選填)</label>
+              <input type="text" id="details" placeholder="例如：畫面角落有一隻小青蛙、下著星砂雨" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-400 outline-none transition-all">
+            </div>
+          </div>
+
+          <!-- 右欄：風格與排版 -->
+          <div class="space-y-5 bg-white/80 p-6 rounded-2xl border border-gray-100 shadow-sm">
+            <h3 class="font-bold text-gray-800 border-b pb-2 mb-4">🎨 風格與排版</h3>
+            
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-bold text-gray-700 mb-1">5. 媒材技法</label>
+                <select id="medium" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-pink-100 focus:border-pink-400 outline-none">
+                  <option value="">請選擇...</option>
+                  <option value="水彩風">水彩風</option>
+                  <option value="粉彩/蠟筆風">粉彩/蠟筆風</option>
+                  <option value="線稿電繪風">線稿電繪風</option>
+                  <option value="拼貼風">拼貼風</option>
+                  <option value="版畫風">版畫風</option>
+                  <option value="水墨風">水墨風</option>
+                  <option value="彩色鉛筆">彩色鉛筆</option>
+                  <option value="厚塗油畫感">厚塗油畫感</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-bold text-gray-700 mb-1">6. 視覺風格</label>
+                <select id="visualStyle" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-pink-100 focus:border-pink-400 outline-none">
+                  <option value="">請選擇...</option>
+                  <option value="寫實具象派">寫實具象派</option>
+                  <option value="卡通童趣派">卡通童趣派</option>
+                  <option value="唯美幾何派">唯美幾何派</option>
+                  <option value="幻想超現實">幻想超現實</option>
+                  <option value="極簡黑白風">極簡黑白風</option>
+                  <option value="日系療癒系">日系療癒系</option>
+                  <option value="歐美童話風">歐美童話風</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-bold text-gray-700 mb-1">7. 色彩光線</label>
+                <select id="colorLight" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-yellow-100 focus:border-yellow-400 outline-none">
+                  <option value="">請選擇...</option>
+                  <option value="柔和暖色調">柔和暖色調</option>
+                  <option value="鮮豔高對比">鮮豔高對比</option>
+                  <option value="淡雅冷色調">淡雅冷色調</option>
+                  <option value="黃昏夕陽光">黃昏夕陽光</option>
+                  <option value="魔法發光(發光體)">魔法發光(發光體)</option>
+                  <option value="黑白與單一重點色">黑白與單一重點色</option>
+                  <option value="自然森系色">自然森系色</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-bold text-gray-700 mb-1">8. 情緒氛圍</label>
+                <select id="emotion" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-yellow-100 focus:border-yellow-400 outline-none">
+                  <option value="">請選擇...</option>
+                  <option value="溫暖療癒">溫暖療癒</option>
+                  <option value="歡樂活潑">歡樂活潑</option>
+                  <option value="神秘奇幻">神秘奇幻</option>
+                  <option value="緊張刺激">緊張刺激</option>
+                  <option value="安靜憂傷">安靜憂傷</option>
+                  <option value="幽默搞笑">幽默搞笑</option>
+                  <option value="充滿希望">充滿希望</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-bold text-gray-700 mb-1">9. 版面配置</label>
+                <select id="layout" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-orange-100 focus:border-orange-400 outline-none">
+                  <option value="">請選擇...</option>
+                  <option value="跨頁滿幅">跨頁滿幅</option>
+                  <option value="單頁獨立">單頁獨立</option>
+                  <option value="圖文分立">圖文分立</option>
+                  <option value="連續分格">連續分格</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-bold text-gray-700 mb-1">10. 留白位置</label>
+                <select id="blankSpace" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-orange-100 focus:border-orange-400 outline-none">
+                  <option value="">請選擇...</option>
+                  <option value="左側">左側</option>
+                  <option value="右側">右側</option>
+                  <option value="上方">上方</option>
+                  <option value="下方">下方</option>
+                  <option value="四周留白">四周留白</option>
+                  <option value="不需要特別留白">不需要特別留白</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 按鈕區 -->
+      <div class="mt-8 flex flex-wrap gap-4 justify-center relative z-10">
+        <button onclick="handleClear()" class="px-6 py-3 rounded-full font-bold text-gray-500 bg-gray-100 hover:bg-gray-200 transition-colors flex items-center gap-2">
+          <i data-lucide="trash-2" class="w-5 h-5"></i> 清除重填
+        </button>
+        <button onclick="generatePromptText()" class="px-8 py-3 rounded-full font-bold text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all flex items-center gap-2 transform">
+          <i data-lucide="sparkles" class="w-5 h-5"></i> 一鍵產生提示詞
+        </button>
+      </div>
+
+      <!-- 結果輸出區 (預設隱藏) -->
+      <div id="outputArea" class="mt-8 p-6 bg-gray-900 rounded-3xl relative hidden opacity-0 transition-opacity duration-500">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-white font-bold flex items-center gap-2">
+            <span class="bg-green-500 w-3 h-3 rounded-full animate-pulse"></span>
+            你的專屬提示詞
+          </h3>
+          <div class="flex gap-2">
+            <button onclick="handleCopy()" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors flex items-center gap-2 text-sm font-medium border border-gray-600">
+              <i id="copyIcon" data-lucide="copy" class="w-4 h-4"></i>
+              <span id="copyBtnText">複製提示詞</span>
+            </button>
+            <button id="submitGasBtn" onclick="submitToGAS()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors flex items-center gap-2 text-sm font-medium border border-blue-500 shadow-lg shadow-blue-900/50">
+              <i id="submitIcon" data-lucide="send" class="w-4 h-4"></i>
+              <span id="submitBtnText">上傳至雲端試算表</span>
+            </button>
+          </div>
+        </div>
+        <textarea id="generatedPrompt" readonly class="w-full h-48 bg-gray-800 text-green-300 p-4 rounded-xl font-mono text-sm leading-relaxed outline-none resize-none border border-gray-700 selection:bg-green-900"></textarea>
+        
+        <!-- 反思小任務 -->
+        <div class="mt-6 bg-blue-900/50 border border-blue-700/50 p-4 rounded-xl">
+           <p class="text-blue-200 text-sm font-bold mb-2">✏️ 課堂小任務：寫在你的學習單上</p>
+           <p class="text-white text-base">「我為什麼選這個風格與排版？」</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center text-gray-400 text-sm py-4">
+      <p>AI 繪本提示詞學習鷹架 - 適合國中生設計思考使用</p>
+    </div>
+
+  </div>
+
+  <script>
+    // ★★★ 請將下面引號內的網址替換為您從 Google Apps Script 取得的「網頁應用程式 URL」 ★★★
+    const GAS_URL = "YOUR_GAS_WEB_APP_URL"; 
+
+    // 初始化 Lucide 圖示
+    lucide.createIcons();
+
+    // 取得所有表單元素
+    const inputs = {
+      className: document.getElementById('className'),
+      groupNumber: document.getElementById('groupNumber'),
+      studentIds: document.getElementById('studentIds'),
+      studentNames: document.getElementById('studentNames'),
+      character: document.getElementById('character'),
+      scene: document.getElementById('scene'),
+      action: document.getElementById('action'),
+      details: document.getElementById('details'),
+      medium: document.getElementById('medium'),
+      visualStyle: document.getElementById('visualStyle'),
+      colorLight: document.getElementById('colorLight'),
+      emotion: document.getElementById('emotion'),
+      layout: document.getElementById('layout'),
+      blankSpace: document.getElementById('blankSpace')
+    };
+
+    // 範例資料庫
+    const examplesData = [
+      { character: '可愛的小恐龍', scene: '奇幻森林', action: '正在尋找發光的蘑菇', emotion: '溫暖療癒', medium: '水彩風', visualStyle: '歐美童話風', colorLight: '柔和暖色調', layout: '跨頁滿幅', details: '夢幻植物藤蔓、彩色鉛筆筆觸、紙張紋理' },
+      { character: '可愛的小恐龍', scene: '奇幻森林', action: '正在尋找發光的蘑菇', emotion: '安靜憂傷', medium: '厚塗油畫感', visualStyle: '日系療癒系', colorLight: '黃昏夕陽光', layout: '單頁獨立', details: '森林系美學、柔邊筆觸、高細節植物背景' },
+      { character: '可愛的小恐龍', scene: '奇幻森林', action: '正在尋找發光的蘑菇', emotion: '歡樂活潑', medium: '拼貼風', visualStyle: '卡通童趣派', colorLight: '鮮豔高對比', layout: '連續分格', details: '手工剪紙質感、簡單幾何形狀、自然元素' },
+      { character: '可愛的小恐龍', scene: '奇幻森林', action: '正在尋找發光的蘑菇', emotion: '幽默搞笑', medium: '線稿電繪風', visualStyle: '卡通童趣派', colorLight: '鮮豔高對比', layout: '單頁獨立', details: '粗黑線條、強烈紅黃藍色塊、誇張角色表情' }
+    ];
+
+    // 帶入範例
+    function loadExample(index) {
+      const data = examplesData[index];
+      for (const key in data) {
+        if (inputs[key]) {
+          inputs[key].value = data[key];
+        }
+      }
+      if (!inputs.blankSpace.value) inputs.blankSpace.value = '右側'; // 預設留白
+      
+      // 延遲一下再生成，讓使用者看到表單被填滿
+      setTimeout(generatePromptText, 300);
+    }
+
+    // 產生提示詞
+    function generatePromptText() {
+      const fallback = (text) => text || '【　】';
+      
+      const prompt = `請生成一張繪本內頁畫面：\n主角是${fallback(inputs.character.value)}，故事場景在${fallback(inputs.scene.value)}。\n角色正在${fallback(inputs.action.value)}，畫面情緒呈現${fallback(inputs.emotion.value)}。\n插畫風格使用${fallback(inputs.medium.value)}＋${fallback(inputs.visualStyle.value)}。\n色彩與光線為${fallback(inputs.colorLight.value)}。\n版面採用${fallback(inputs.layout.value)}，文字預留在${fallback(inputs.blankSpace.value)}。\n畫面中加入${fallback(inputs.details.value)}等細節。\n請保持兒童繪本感、圖像清楚、留白自然、適合放入故事文字。`;
+
+      document.getElementById('generatedPrompt').value = prompt;
+      
+      const outputArea = document.getElementById('outputArea');
+      outputArea.classList.remove('hidden');
+      // 為了觸發 fade-in 效果，使用一點延遲
+      setTimeout(() => {
+        outputArea.classList.remove('opacity-0');
+        outputArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 50);
+    }
+
+    // 清除表單
+    function handleClear() {
+      for (const key in inputs) {
+        inputs[key].value = '';
+      }
+      const outputArea = document.getElementById('outputArea');
+      outputArea.classList.add('opacity-0');
+      setTimeout(() => {
+        outputArea.classList.add('hidden');
+        document.getElementById('generatedPrompt').value = '';
+      }, 500); // 等待透明度過渡完成
+    }
+
+    // 複製提示詞
+    async function handleCopy() {
+      const text = document.getElementById('generatedPrompt').value;
+      if (!text) return;
+      
+      const btnText = document.getElementById('copyBtnText');
+      const icon = document.getElementById('copyIcon');
+
+      const setSuccessState = () => {
+        btnText.textContent = '複製成功！';
+        icon.setAttribute('data-lucide', 'check-circle');
+        lucide.createIcons(); // 刷新 icon
+        
+        setTimeout(() => {
+          btnText.textContent = '複製提示詞';
+          icon.setAttribute('data-lucide', 'copy');
+          lucide.createIcons();
+        }, 2000);
+      };
+
+      try {
+        await navigator.clipboard.writeText(text);
+        setSuccessState();
+      } catch (err) {
+        // Fallback 方法
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+          document.execCommand('copy');
+          setSuccessState();
+        } catch (e) {
+          btnText.textContent = '複製失敗，請手動複製';
+          setTimeout(() => btnText.textContent = '複製提示詞', 2000);
+        }
+        document.body.removeChild(textArea);
+      }
+    }
+
+    // 送出資料到 GAS 試算表
+    async function submitToGAS() {
+      if(GAS_URL === "YOUR_GAS_WEB_APP_URL") {
+        alert("老師請注意：您尚未填寫 Google Apps Script 的 URL，請在 HTML 原始碼下方修改 GAS_URL 變數！");
+        return;
+      }
+
+      // 檢查基本資料是否填寫
+      if(!inputs.className.value || !inputs.groupNumber.value || !inputs.studentIds.value || !inputs.studentNames.value) {
+        alert("請確認【班級】、【組別】、【座號】及【姓名】皆已填寫！");
+        return;
+      }
+
+      const promptText = document.getElementById('generatedPrompt').value;
+      if(!promptText) {
+        alert("請先點擊「一鍵產生提示詞」！");
+        return;
+      }
+
+      const btn = document.getElementById('submitGasBtn');
+      const btnText = document.getElementById('submitBtnText');
+      const icon = document.getElementById('submitIcon');
+
+      // 進入載入狀態
+      btnText.textContent = '傳送中...';
+      btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+      const submitData = {
+        className: inputs.className.value,
+        group: inputs.groupNumber.value,
+        studentNumbers: inputs.studentIds.value,
+        studentNames: inputs.studentNames.value,
+        prompt: promptText
+      };
+
+      try {
+        // 使用 text/plain 傳送 JSON 字串，避免觸發 CORS 預檢請求
+        const response = await fetch(GAS_URL, {
+          method: 'POST',
+          body: JSON.stringify(submitData),
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8',
+          }
+        });
+
+        const result = await response.json();
+
+        if(result.status === 'success') {
+          btnText.textContent = '上傳成功！';
+          icon.setAttribute('data-lucide', 'check-circle');
+          btn.classList.remove('bg-blue-600', 'hover:bg-blue-500', 'border-blue-500');
+          btn.classList.add('bg-green-600', 'hover:bg-green-500', 'border-green-500');
+          lucide.createIcons();
+        } else {
+          throw new Error(result.message);
+        }
+      } catch (error) {
+        console.error(error);
+        btnText.textContent = '上傳失敗，請重試';
+      } finally {
+        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        
+        // 3秒後恢復按鈕狀態
+        setTimeout(() => {
+          btnText.textContent = '上傳至雲端試算表';
+          icon.setAttribute('data-lucide', 'send');
+          btn.classList.add('bg-blue-600', 'hover:bg-blue-500', 'border-blue-500');
+          btn.classList.remove('bg-green-600', 'hover:bg-green-500', 'border-green-500');
+          lucide.createIcons();
+        }, 3000);
+      }
+    }
+  </script>
+</body>
+</html>
